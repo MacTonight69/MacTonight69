@@ -2,7 +2,9 @@
 #include<conio.h>
 using namespace std;
 char caracter;
-/* eliminar un caracter de un string*/
+
+/* delete a caracter of a string var*/
+
 void delchar(string& word, char character){
 	string new_word;
 	for(int i = 0; i < word.length(); i++){
@@ -12,65 +14,18 @@ void delchar(string& word, char character){
 	}
 	word=new_word;
 }
-
-void takeDNI(string& DNI){
-	char caracter;
-	DNI="";
-	do{
-		caracter=getch();
-		if(caracter!=8){
-			if(caracter>47&&caracter<58){
-				if(DNI.length()==2||DNI.length()==6){
-					cout<<".";
-					DNI+=".";
-				}
-				DNI.push_back(caracter);
-				cout<<caracter;
-			} else if(caracter==13&&DNI.length()==10){
-				break;
-			}
-		} else{
-			if(DNI.length()==3||DNI.length()==7){
-				cout<<"\b \b"<<"\b \b";
-				DNI=DNI.substr(0, DNI.length() - 2);
-			}else if(DNI.length()>0){
-				DNI=DNI.substr(0, DNI.length() - 1);
-				cout<<"\b \b";
-			}
-		}
-	} while(DNI.length()<10);
-}
-
-void takeCUIL(string& cuil, string DNI){
-	delchar(DNI, '.');
-	do{
-		caracter=getch();
-		if(caracter!=8){
-			if(caracter>47&&caracter<58){
-				cout<<caracter;
-				cuil.push_back(caracter);
-				if(cuil.length()==2){
-					cout<<"-"<<DNI<<"-";
-					cuil=cuil+"-"+DNI+"-";
-				}
-			}
-		} else if(cuil.length() > 0){
-			if(cuil.length()==12){
-				while(cuil.length()!=1){
-					cout<<"\b \b";
-					cuil=cuil.substr(0, cuil.length() - 1);
-				}
-			} else{
-				cuil=cuil.substr(0, cuil.length() - 1);
-				cout<<"\b \b";
-			}
-		}
-	} while(cuil.length()<=12);
 	
-}
-
 int rec_typenum(string& word){
 	int detect=1;	// int
+	while(word[0]=='0'){
+		for(int i=0; i<word.length(); i++){
+			if(i+1!=word.length()){
+				word[i]=word[i+1];
+			} else{
+				word[i]=' ';
+			}
+		}
+	}
 	if(word.length()>0){
 		for(int i=0; i<word.length();i++){
 			if(word[i]=='.'){
@@ -80,11 +35,13 @@ int rec_typenum(string& word){
 			}
 		}
 	} else{
-		detect=0;
+		detect=0; // it's void
 	}
 	return detect;
 }
-/* detectar si un caracter esta en un string */
+
+	/* detect a character in a string var*/
+
 bool detchar(string& word, char character){
 	int detect=false;
 	for(int i=0; i<word.length();i++){
@@ -95,8 +52,10 @@ bool detchar(string& word, char character){
 	}
 	return detect;
 }
-/* reemplazar un caracter */
-void replchar(string& word, char replaced_char, char new_char){
+
+	/* replace a character */
+
+void repchar(string& word, char replaced_char, char new_char){
 	for (int i = 0; i < word.length(); i++) {
 		if(word[i]!=replaced_char&&word[i]!=toupper(replaced_char)){
 			word[i] = word[i];
@@ -107,7 +66,7 @@ void replchar(string& word, char replaced_char, char new_char){
 		}
 	}
 }
-	/* pasar a mayuscula */
+	/* mayus */
 void uppstr(string& word){
 	for (int i = 0; i < word.length(); i++) {
 		word[i]=toupper(word[i]);
@@ -117,7 +76,7 @@ void uppstr(string& word){
 void uppchar(char& word){
 	word=toupper(word);
 }
-	/* pasar a minuscula*/
+	/* pasar a minuscula */
 void lowstr(string& word){
 	for (int i = 0; i < word.length(); i++) {
 		word[i]=tolower(word[i]);
@@ -129,18 +88,56 @@ void lowchar(char& word){
 }
 
 	/*
-	leer sin bloquear caracteres
+		read characters
 	*/
 
+void takechar(char& CT){	//take a character
+	CT=getch();
+}
+
+char takechar(){		//take and return a character
+	return getch();
+}
+
+void takeyn(char& WORD){	//read only 'Y' (yes) or 'N' (no) 
+	do{
+		WORD=getch();
+	} while(toupper(WORD)!='Y'||toupper(WORD)!='N');
+	uppchar(WORD);
+}
+
+char takeyn(){	//read and return 'Y' or 'N'
+	do{
+		caracter=getch();
+	} while(toupper(caracter)!='Y'||toupper(caracter)!='N');
+	return toupper(caracter);
+}
+
+void takeonly(char& ct, char ct1, char ct2){	//read only 2 specifics characters
+	do{
+		ct=toupper(getch());
+	} while( ct != ct1 && ct != ct2);
+}
+
+char takeonly(char ct1, char ct2){	//read & return 2 specifics character
+	do{
+		caracter=toupper(getch());
+	} while( caracter != ct1 && caracter != ct2);
+	return caracter;
+}
+
+	/*
+	read string var without limit characters
+	*/
+	
 void take(string& word){
 	word="";
 	do{
-		caracter=getch();
+		caracter=getche();
 		if(caracter!=8){
 			word.push_back(caracter);
-			cout<<caracter;
 		}else if( word.length()>0){
-			cout<<"\b \b";
+			cout<<" \b \b";
 			word = word.substr(0, word.length() - 1);
 		}
 	} while(caracter!=13);
@@ -165,15 +162,10 @@ void take(string& word, int max_digits, bool mayus){
 	do{
 		caracter=getch();
 		if(caracter!=8 && (max_digits > word.length() || max_digits==0) ){
-			if(mayus){
-				caracter=toupper(caracter);
-				word.push_back(caracter);
-				cout<<caracter;	
-			} else{
-				caracter=tolower(caracter);
-				word.push_back(caracter);
-				cout<<caracter;
-			}
+			if(mayus) caracter=toupper(caracter);
+			else caracter=tolower(caracter);
+			word.push_back(caracter);
+			putch(caracter);
 		} else if(word.length()>0&&caracter==8){
 			cout<<"\b \b";
 			word=word.substr(0, word.length() - 1);
@@ -186,15 +178,10 @@ void take(string& word, int max_digits, bool mayus, bool space){
 	do{
 		caracter=getch();
 		if(caracter!=8 && ((caracter==32&&space)||caracter!=32) && (max_digits>word.length() || max_digits==0)){
-			if(mayus){
-				caracter=toupper(caracter);
-				word.push_back(caracter);
-				cout<<caracter;	
-			} else{
-				caracter=tolower(caracter);
-				word.push_back(caracter);
-				cout<<caracter;
-			}
+			if(mayus) caracter=toupper(caracter);
+			else caracter=tolower(caracter);
+			word.push_back(caracter);
+			putch(caracter);
 		} else if( word.length()>0 && caracter==8){
 			cout<<"\b \b";
 			word=word.substr(0, word.length() - 1);
@@ -203,7 +190,7 @@ void take(string& word, int max_digits, bool mayus, bool space){
 }
 
 	/*
-	leer solo numeros
+	read only numbers
 	*/
 	
 template <class Number>
@@ -213,7 +200,7 @@ void takenum(Number& num, int max_digits){
 		caracter=getch();
 		if(caracter!=8){
 			if((caracter>=48 && caracter<=57) || caracter==46){
-				cout<<caracter;
+				putch(caracter);
 				NUM.push_back(caracter);	
 			}
 		} else if(NUM.length()>0){
@@ -221,15 +208,14 @@ void takenum(Number& num, int max_digits){
 			NUM=NUM.substr(0, NUM.length() - 1);
 		}
 	} while( caracter!=13 && (NUM.length()<max_digits || max_digits==0));
-	switch( rec_typenum(NUM) ){
-		case 0: num=0;
-		break;
-		case 1: num=stoi(NUM);
-		break;
-		case 2: num=stof(NUM);
-		break;
-		case 3: num=stod(NUM);
-		break;
+	
+	if(NUM=="0") num=0;
+	else{
+		switch( rec_typenum(NUM) ){
+			case 1: num=stoi(NUM);break;
+			case 2: num=stof(NUM);break;
+			case 3: num=stod(NUM);break;
+		}
 	}
 }
 
@@ -240,8 +226,8 @@ void takenum(Number& num){
 		caracter=getch();
 		if(caracter!=8){
 			if((caracter>=48 && caracter<=57) || caracter==46){
-				cout<<caracter;
-				NUM.push_back(caracter);	
+				putch(caracter);
+				NUM.push_back(caracter);
 			}
 		} else{
 			if( NUM.length()>0 ){
@@ -250,20 +236,19 @@ void takenum(Number& num){
 			}
 		}
 	} while(caracter!=13);
-	switch( rec_typenum(NUM) ){
-		case 0: num=0;
-		break;
-		case 1: num=stoi(NUM);
-		break;
-		case 2: num=stof(NUM);
-		break;
-		case 3: num=stod(NUM);
-		break;
+	if(NUM=="0") num=0;
+	else{
+		switch( rec_typenum(NUM) ){
+			case 1: num=stoi(NUM);break;
+			case 2: num=stof(NUM);break;
+			case 3: num=stod(NUM);break;
+		}
 	}
+	
 }
 
 	/*
-	leer solo letras
+	read only letters and spaces
 	*/
 
 void takestr(string& WORD){
@@ -272,7 +257,7 @@ void takestr(string& WORD){
 		caracter=getch();
 		if(caracter!=8){
 			if((caracter>='a'&&caracter<='z')||(caracter>='A'&&caracter<='Z')||caracter==' '){
-				cout<<caracter;
+				putch(caracter);
 				WORD.push_back(caracter);	
 			}
 		} else{
@@ -290,7 +275,7 @@ void takestr(string& WORD, int max_digits){
 		caracter=getch();
 		if(caracter!=8){
 			if((WORD.length()<max_digits||max_digits==0)&&((caracter>='a'&&caracter<='z')||(caracter>='A'&&caracter<='Z')||caracter==' ')){
-				cout<<caracter;
+				putch(caracter);
 				WORD.push_back(caracter);	
 			}
 		} else{
@@ -308,7 +293,7 @@ void takestr(string& WORD, int max_digits, bool space){
 		caracter=getch();
 		if(caracter!=8){
 			if((WORD.length()<max_digits||max_digits==0)&&((caracter>='a'&&caracter<='z')||(caracter>='A'&&caracter<='Z')||(caracter==' '&&space))){
-				cout<<caracter;
+				putch(caracter);
 				WORD.push_back(caracter);	
 			}
 		} else{
@@ -326,16 +311,9 @@ void takestr(string& WORD, int max_digits, bool space, bool mayus){
 		caracter=getch();
 		if(caracter!=8){
 			if((WORD.length()<max_digits||max_digits==0)&&((caracter>='a'&&caracter<='z')||(caracter>='A'&&caracter<='Z')||(caracter==' '&&space))){
-				if(mayus){
-					caracter=toupper(caracter);
-					word.push_back(caracter);
-					cout<<caracter;	
-				} else{
-					caracter=tolower(caracter);
-					word.push_back(caracter);
-					cout<<caracter;
-				}
-				cout<<caracter;
+				if(mayus) caracter=toupper(caracter);
+				else caracter=tolower(caracter);
+				putch(caracter);
 				WORD.push_back(caracter);
 			}
 		} else{
@@ -348,7 +326,7 @@ void takestr(string& WORD, int max_digits, bool space, bool mayus){
 }
 
 	/*
-	leer una palabra bloaqueando el mensaje
+	read a password
 	*/
 
 void takepasw(string& WORD){
@@ -356,7 +334,7 @@ void takepasw(string& WORD){
 	do{
 		caracter=getch();
 		if(caracter!=8){
-			cout<<"*";
+			putch('*');
 			WORD.push_back(caracter);
 		} else{
 			if(WORD.length()>0){
@@ -372,7 +350,7 @@ void takepasw(string& WORD, int max_digits){
 	do{
 		caracter=getch();
 		if(caracter!=8){
-			cout<<"*";
+			putch('*');
 			WORD.push_back(caracter);
 		} else{
 			if(WORD.length()>0){
@@ -389,7 +367,7 @@ void takepasw(string& WORD, int max_digits, bool mayus){
 		caracter=getch();
 		if(caracter!=8){
 			if(mayus) caracter=toupper(caracter);
-			cout<<"*";
+			putch('*');
 			WORD.push_back(caracter);
 		} else{
 			if(WORD.length()>0){
@@ -401,36 +379,15 @@ void takepasw(string& WORD, int max_digits, bool mayus){
 }
 
 	/*
-	leer solo 's' o 'n' 
+	read blocking specifics characters
 	*/
-	
-void takesn(char& WORD){
-	do{
-		WORD=getch();
-	} while(caracter!='s'&&caracter!='S'&&caracter!='n'&&caracter!='N');
-	uppchar(WORD);
-}
-
-void takesn(string& WORD){
-	WORD="";
-	do{
-		caracter=getch();
-		if(caracter=='s'||caracter=='S'||caracter=='n'||caracter=='N'){
-			WORD.push_back(toupper(caracter));
-		}
-	} while(WORD.length() == 0);
-}
-
-/*
-leer bloqueando unos caracteres en especifico
-*/
 
 void takenot(string& word, char char1){
 	word="";
 	do{
 		caracter=getch();
 		if(caracter!=8 && caracter!=char1){
-			cout<<caracter;
+			putch(caracter);
 			word.push_back(caracter);
 		}else if(word.length()>0 && caracter==8){
 			cout<<"\b \b";
@@ -444,7 +401,7 @@ void takenot(string& word, char char1, char char2){
 	do{
 		caracter=getch();
 		if(caracter!=8 && (caracter!=char1 && caracter!=char2)){
-			cout<<caracter;
+			putch(caracter);
 			word.push_back(caracter);
 		}else if(word.length()>0 && caracter==8){
 			cout<<"\b \b";
@@ -458,7 +415,7 @@ void takenot(string& word, char char1, char char2, char char3){
 	do{
 		caracter=getch();
 		if(caracter!=8 && (caracter!=char1 && caracter!=char2 && caracter!=char3)){
-			cout<<caracter;
+			putch(caracter);
 			word.push_back(caracter);
 		}else if(word.length()>0 && caracter==8){
 			cout<<"\b \b";
