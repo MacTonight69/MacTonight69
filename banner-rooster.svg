@@ -1,170 +1,192 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 260" width="1000" height="260">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320">
   <defs>
-    <!-- Fondo degradado: noche oscura → rojo sangre → dorado -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0D0D0D"/>
-      <stop offset="50%" stop-color="#1A1A2E"/>
-      <stop offset="100%" stop-color="#2B0A0A"/>
-    </linearGradient>
-
-    <!-- Gradiente para el texto principal -->
-    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FFD700"/>
-      <stop offset="50%" stop-color="#FF4500"/>
-      <stop offset="100%" stop-color="#8B0000"/>
-    </linearGradient>
-
-    <!-- Gradiente de la barra de energía -->
-    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#8B0000"/>
-      <stop offset="50%" stop-color="#FF4500"/>
-      <stop offset="100%" stop-color="#FFD700"/>
-    </linearGradient>
-
-    <!-- Brillo de fondo -->
-    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
-      <stop offset="0%" stop-color="#8B0000" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#0D0D0D" stop-opacity="0"/>
+    <!-- Fondo: negro profundo → vino oscuro -->
+    <radialGradient id="sky" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#1A0A0A"/>
+      <stop offset="40%" stop-color="#0F0505"/>
+      <stop offset="100%" stop-color="#050505"/>
     </radialGradient>
 
-    <!-- Patrón de plumas -->
-    <pattern id="feathers" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M20 5 Q25 15 20 25 Q15 15 20 5 Z" fill="#8B0000" opacity="0.08"/>
-    </pattern>
+    <!-- Luna llena -->
+    <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5E6C8"/>
+      <stop offset="70%" stop-color="#D4B896"/>
+      <stop offset="100%" stop-color="#8B7355"/>
+    </radialGradient>
+
+    <!-- Halo de la luna -->
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5E6C8" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#8B0000" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gradiente del texto -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9A961"/>
+      <stop offset="50%" stop-color="#8B0000"/>
+      <stop offset="100%" stop-color="#3A0000"/>
+    </linearGradient>
+
+    <!-- Ornamento -->
+    <linearGradient id="ornament" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3A0000" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#C9A961"/>
+      <stop offset="100%" stop-color="#3A0000" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Filtro de brillo suave -->
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Símbolo del cuervo (silueta en vuelo) -->
+    <g id="ravenFlying">
+      <path d="M0 0 Q-8 -6 -18 -4 Q-14 2 -20 4 Q-10 6 -6 4 Q-12 8 -18 12 Q-8 10 -2 8 Q-4 14 -2 18 Q0 12 2 18 Q4 14 2 8 Q8 10 18 12 Q12 8 6 4 Q10 6 20 4 Q14 2 18 -4 Q8 -6 0 0 Z" fill="#0A0A0A"/>
+    </g>
+
+    <!-- Cuervo posado -->
+    <g id="ravenPerched">
+      <!-- Cuerpo -->
+      <path d="M0 0 Q-4 -10 2 -18 Q6 -22 10 -20 Q14 -18 14 -12 Q14 -4 8 2 Q4 6 0 0 Z" fill="#0A0A0A"/>
+      <!-- Cabeza -->
+      <ellipse cx="10" cy="-20" rx="5" ry="4.5" fill="#0A0A0A"/>
+      <!-- Pico -->
+      <path d="M14 -20 L20 -19 L14 -18 Z" fill="#1A1A1A"/>
+      <!-- Ojo -->
+      <circle cx="12" cy="-20.5" r="0.8" fill="#8B0000"/>
+      <!-- Cola -->
+      <path d="M0 0 L-6 10 L-2 9 L-7 16 L2 8 L4 12 Z" fill="#0A0A0A"/>
+      <!-- Patas -->
+      <line x1="6" y1="2" x2="6" y2="10" stroke="#1A1A1A" stroke-width="1"/>
+      <line x1="10" y1="2" x2="10" y2="10" stroke="#1A1A1A" stroke-width="1"/>
+    </g>
   </defs>
 
   <!-- Fondo -->
-  <rect width="1000" height="260" fill="url(#bgGrad)"/>
-  <rect width="1000" height="260" fill="url(#feathers)"/>
-  <rect width="1000" height="260" fill="url(#glow)"/>
+  <rect width="1200" height="320" fill="url(#sky)"/>
 
-  <!-- Marco doble estilo palenque -->
-  <rect x="8" y="8" width="984" height="244" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.8"/>
-  <rect x="16" y="16" width="968" height="228" fill="none" stroke="#8B0000" stroke-width="1.5" opacity="0.9"/>
+  <!-- Luna llena y halo -->
+  <circle cx="950" cy="90" r="70" fill="url(#moonGlow)"/>
+  <circle cx="950" cy="90" r="45" fill="url(#moon)"/>
+  <!-- Cráteres sutiles -->
+  <circle cx="935" cy="80" r="6" fill="#B8A080" opacity="0.4"/>
+  <circle cx="960" cy="100" r="4" fill="#B8A080" opacity="0.35"/>
+  <circle cx="945" cy="105" r="3" fill="#B8A080" opacity="0.3"/>
 
-  <!-- Esquinas tipo HUD -->
-  <path d="M8 40 L8 8 L40 8" fill="none" stroke="#FF4500" stroke-width="3"/>
-  <path d="M960 8 L992 8 L992 40" fill="none" stroke="#FF4500" stroke-width="3"/>
-  <path d="M8 220 L8 252 L40 252" fill="none" stroke="#FF4500" stroke-width="3"/>
-  <path d="M960 252 L992 252 L992 220" fill="none" stroke="#FF4500" stroke-width="3"/>
+  <!-- Niebla / neblina inferior -->
+  <ellipse cx="600" cy="300" rx="700" ry="60" fill="#0A0A0A" opacity="0.9"/>
+  <ellipse cx="300" cy="310" rx="400" ry="40" fill="#1A0A0A" opacity="0.6"/>
+  <ellipse cx="900" cy="315" rx="350" ry="35" fill="#1A0A0A" opacity="0.5"/>
 
-  <!-- ===== CUERVO (izquierda) ===== -->
-  <g transform="translate(70, 60)">
-    <!-- Cuerpo del cuervo (silueta estilizada) -->
-    <path d="M20 100 Q10 60 30 30 Q45 10 70 15 Q90 20 95 45 
-             Q100 70 80 95 Q60 115 40 110 Z" 
-          fill="#0D0D0D" stroke="#4A4A6A" stroke-width="2"/>
-    <!-- Cabeza -->
-    <circle cx="60" cy="30" r="18" fill="#0D0D0D" stroke="#4A4A6A" stroke-width="2"/>
-    <!-- Pico -->
-    <path d="M78 28 L98 32 L78 38 Z" fill="#FFD700" stroke="#8B0000" stroke-width="1"/>
-    <!-- Ojo brillante animado -->
-    <circle cx="68" cy="27" r="3.5" fill="#FF0000">
-      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="68" cy="27" r="1.5" fill="#FFD700"/>
-    <!-- Ala extendida -->
-    <path d="M35 50 Q0 40 -10 65 Q10 70 30 75 Z" fill="#1A1A2E" stroke="#4A4A6A" stroke-width="1.5"/>
-    <!-- Cola -->
-    <path d="M40 105 L10 130 L25 128 L15 145 L45 118 Z" fill="#0D0D0D" stroke="#4A4A6A" stroke-width="1.5"/>
-    <!-- Patas -->
-    <line x1="50" y1="108" x2="45" y2="130" stroke="#FFD700" stroke-width="2"/>
-    <line x1="60" y1="108" x2="65" y2="130" stroke="#FFD700" stroke-width="2"/>
+  <!-- Rama delgada de árbol muerto -->
+  <path d="M0 220 Q150 200 300 215 Q450 230 600 210 Q750 195 900 215 Q1050 235 1200 220" 
+        fill="none" stroke="#0A0A0A" stroke-width="3"/>
+  <path d="M0 222 Q150 202 300 217 Q450 232 600 212 Q750 197 900 217 Q1050 237 1200 222" 
+        fill="none" stroke="#1A0A0A" stroke-width="1"/>
+  <!-- Ramas secundarias -->
+  <path d="M180 208 Q200 180 220 170" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <path d="M420 222 Q440 195 460 185" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <path d="M780 210 Q800 185 820 175" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <path d="M1000 228 Q1020 200 1040 190" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+
+  <!-- Cuervos posados en la rama -->
+  <use href="#ravenPerched" x="200" y="180" transform="scale(1.1)"/>
+  <use href="#ravenPerched" x="440" y="192" transform="scale(1.2)"/>
+  <use href="#ravenPerched" x="800" y="180" transform="scale(1.1)"/>
+  <use href="#ravenPerched" x="1020" y="198" transform="scale(1.0)"/>
+
+  <!-- Cuervos volando -->
+  <use href="#ravenFlying" x="150" y="80" transform="scale(1.5)" opacity="0.85"/>
+  <use href="#ravenFlying" x="320" y="50" transform="scale(1.1)" opacity="0.65"/>
+  <use href="#ravenFlying" x="520" y="70" transform="scale(1.3)" opacity="0.75"/>
+  <use href="#ravenFlying" x="700" y="40" transform="scale(0.9)" opacity="0.55"/>
+  <use href="#ravenFlying" x="1080" y="70" transform="scale(1.2)" opacity="0.7"/>
+
+  <!-- Marco ornamental doble -->
+  <rect x="14" y="14" width="1172" height="292" fill="none" stroke="#3A0000" stroke-width="1" opacity="0.9"/>
+  <rect x="20" y="20" width="1160" height="280" fill="none" stroke="#6B0000" stroke-width="1" opacity="0.6"/>
+  <rect x="26" y="26" width="1148" height="268" fill="none" stroke="#C9A961" stroke-width="0.5" opacity="0.35"/>
+
+  <!-- Esquinas ornamentales -->
+  <g stroke="#C9A961" stroke-width="1.2" fill="none" opacity="0.8">
+    <path d="M14 50 L14 14 L50 14"/>
+    <path d="M20 56 L20 20 L56 20" opacity="0.5"/>
+    <circle cx="22" cy="22" r="2" fill="#C9A961" stroke="none"/>
+    
+    <path d="M1150 14 L1186 14 L1186 50"/>
+    <path d="M1144 20 L1180 20 L1180 56" opacity="0.5"/>
+    <circle cx="1178" cy="22" r="2" fill="#C9A961" stroke="none"/>
+    
+    <path d="M14 270 L14 306 L50 306"/>
+    <path d="M20 264 L20 300 L56 300" opacity="0.5"/>
+    <circle cx="22" cy="298" r="2" fill="#C9A961" stroke="none"/>
+    
+    <path d="M1150 306 L1186 306 L1186 270"/>
+    <path d="M1144 300 L1180 300 L1180 264" opacity="0.5"/>
+    <circle cx="1178" cy="298" r="2" fill="#C9A961" stroke="none"/>
   </g>
 
-  <!-- Texto "CUERVO" -->
-  <text x="130" y="220" font-family="Impact, Arial Black, sans-serif" font-size="22" 
-        fill="#4A4A6A" text-anchor="middle" letter-spacing="4">CUERVO</text>
+  <!-- Línea ornamental superior -->
+  <line x1="80" y1="52" x2="1120" y2="52" stroke="url(#ornament)" stroke-width="1"/>
+  <!-- Rombo central superior -->
+  <path d="M600 46 L606 52 L600 58 L594 52 Z" fill="#C9A961" opacity="0.8"/>
 
-  <!-- ===== GALLO (derecha) ===== -->
-  <g transform="translate(810, 55)">
-    <!-- Cresta animada -->
-    <path d="M40 20 Q30 0 40 -5 Q50 5 55 -5 Q65 0 60 20 Z" fill="#FF0000">
-      <animate attributeName="d" 
-        values="M40 20 Q30 0 40 -5 Q50 5 55 -5 Q65 0 60 20 Z;
-                M40 20 Q28 -2 40 -8 Q52 3 58 -6 Q68 -1 60 20 Z;
-                M40 20 Q30 0 40 -5 Q50 5 55 -5 Q65 0 60 20 Z" 
-        dur="1.5s" repeatCount="indefinite"/>
-    </path>
-    <!-- Cabeza -->
-    <circle cx="50" cy="35" r="18" fill="#8B0000" stroke="#FFD700" stroke-width="2"/>
-    <!-- Pico -->
-    <path d="M66 33 L90 38 L66 43 Z" fill="#FFD700" stroke="#8B0000" stroke-width="1"/>
-    <!-- Ojo brillante animado -->
-    <circle cx="56" cy="32" r="3.5" fill="#FFD700">
-      <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="56" cy="32" r="1.5" fill="#FF0000"/>
-    <!-- Barbilla (wattle) -->
-    <ellipse cx="60" cy="52" rx="6" ry="9" fill="#FF0000">
-      <animate attributeName="ry" values="9;11;9" dur="1.2s" repeatCount="indefinite"/>
+  <!-- Línea ornamental inferior -->
+  <line x1="80" y1="268" x2="1120" y2="268" stroke="url(#ornament)" stroke-width="1"/>
+  <path d="M600 262 L606 268 L600 274 L594 268 Z" fill="#C9A961" opacity="0.8"/>
+
+  <!-- Texto principal -->
+  <text x="600" y="165" 
+        font-family="'Cinzel', 'Trajan Pro', 'Times New Roman', serif" 
+        font-size="56" font-weight="600" 
+        fill="url(#textGrad)" text-anchor="middle" 
+        letter-spacing="14" filter="url(#softGlow)">
+    CORVUS
+  </text>
+
+  <!-- Subtítulo -->
+  <text x="600" y="200" 
+        font-family="'Cinzel', 'Times New Roman', serif" 
+        font-size="14" 
+        fill="#C9A961" text-anchor="middle" 
+        letter-spacing="8" opacity="0.85">
+    ⛧ DESARROLLADOR ⛧
+  </text>
+
+  <!-- Lema -->
+  <text x="600" y="232" 
+        font-family="'EB Garamond', 'Georgia', serif" 
+        font-size="12" font-style="italic"
+        fill="#8B7355" text-anchor="middle" 
+        letter-spacing="3" opacity="0.75">
+    in tenebris codificamus
+  </text>
+
+  <!-- Vela / llama parpadeante sutil -->
+  <g transform="translate(80, 240)">
+    <rect x="-3" y="0" width="6" height="20" fill="#1A1A1A"/>
+    <ellipse cx="0" cy="-3" rx="3" ry="6" fill="#C9A961" opacity="0.9">
+      <animate attributeName="ry" values="6;7;5;6" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.9;0.6;1;0.9" dur="1.5s" repeatCount="indefinite"/>
     </ellipse>
-    <!-- Cuerpo -->
-    <path d="M20 100 Q5 60 30 40 Q50 35 70 45 Q90 60 85 100 Q60 115 35 110 Z" 
-          fill="#8B0000" stroke="#FFD700" stroke-width="2"/>
-    <!-- Plumas del cuello -->
-    <path d="M30 60 Q15 55 10 75 Q25 80 35 75 Z" fill="#FF4500" opacity="0.8"/>
-    <path d="M70 55 Q85 50 90 70 Q75 78 65 72 Z" fill="#FF4500" opacity="0.8"/>
-    <!-- Cola de plumas -->
-    <path d="M30 105 Q0 100 -15 120 Q5 125 10 135 Q30 125 40 115 Z" 
-          fill="#1A0A0A" stroke="#FFD700" stroke-width="1.5"/>
-    <path d="M35 105 Q5 95 -10 110 Q10 118 20 125 Q35 118 45 110 Z" 
-          fill="#8B0000" stroke="#FF4500" stroke-width="1" opacity="0.9"/>
-    <!-- Patas -->
-    <line x1="45" y1="108" x2="40" y2="130" stroke="#FFD700" stroke-width="2"/>
-    <line x1="60" y1="108" x2="65" y2="130" stroke="#FFD700" stroke-width="2"/>
-    <!-- Espolones -->
-    <path d="M40 130 L35 138 L42 134 Z" fill="#FFD700"/>
-    <path d="M65 130 L70 138 L63 134 Z" fill="#FFD700"/>
+    <ellipse cx="0" cy="-2" rx="1.5" ry="3" fill="#F5E6C8">
+      <animate attributeName="opacity" values="1;0.7;1" dur="1s" repeatCount="indefinite"/>
+    </ellipse>
   </g>
 
-  <!-- Texto "GALLO" -->
-  <text x="870" y="220" font-family="Impact, Arial Black, sans-serif" font-size="22" 
-        fill="#FFD700" text-anchor="middle" letter-spacing="4">GALLO</text>
-
-  <!-- ===== VS central ===== -->
-  <text x="500" y="140" font-family="Impact, Arial Black, sans-serif" font-size="52" 
-        fill="url(#textGrad)" text-anchor="middle" letter-spacing="2">
-    VS
-    <animate attributeName="opacity" values="1;0.6;1" dur="1.5s" repeatCount="indefinite"/>
-  </text>
-
-  <!-- Rayo entre ambos -->
-  <path d="M470 130 L490 125 L480 135 L500 130 L485 145 L505 140" 
-        fill="none" stroke="#FFD700" stroke-width="2" opacity="0.9">
-    <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite"/>
-  </path>
-
-  <!-- ===== Texto tipo terminal ===== -->
-  <text x="500" y="60" font-family="Courier New, monospace" font-size="16" 
-        fill="#FFD700" text-anchor="middle" letter-spacing="2">
-    &gt; INICIALIZANDO SISTEMA...
-    <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/>
-  </text>
-
-  <text x="500" y="85" font-family="Courier New, monospace" font-size="14" 
-        fill="#FF4500" text-anchor="middle" letter-spacing="1">
-    &gt; CARGANDO MÓDULOS DE COMBATE_
-    <animate attributeName="opacity" values="1;0.4;1" dur="1.3s" repeatCount="indefinite"/>
-  </text>
-
-  <!-- Línea de escaneo (scanline) animada -->
-  <rect x="0" y="0" width="1000" height="4" fill="#FFD700" opacity="0.15">
-    <animate attributeName="y" values="0;256;0" dur="6s" repeatCount="indefinite"/>
-  </rect>
-
-  <!-- ===== Barra de energía (abajo) ===== -->
-  <text x="40" y="245" font-family="Courier New, monospace" font-size="12" 
-        fill="#FFD700">HP</text>
-  <rect x="65" y="235" width="200" height="10" fill="none" stroke="#FFD700" stroke-width="1.5"/>
-  <rect x="67" y="237" width="0" height="6" fill="url(#barGrad)">
-    <animate attributeName="width" values="0;196;196;0" dur="4s" repeatCount="indefinite"/>
-  </rect>
-
-  <text x="800" y="245" font-family="Courier New, monospace" font-size="12" 
-        fill="#FFD700">EN</text>
-  <rect x="825" y="235" width="130" height="10" fill="none" stroke="#FFD700" stroke-width="1.5"/>
-  <rect x="827" y="237" width="0" height="6" fill="#FF4500">
-    <animate attributeName="width" values="0;126;126;0" dur="4s" repeatCount="indefinite" begin="0.5s"/>
-  </rect>
+  <g transform="translate(1120, 240)">
+    <rect x="-3" y="0" width="6" height="20" fill="#1A1A1A"/>
+    <ellipse cx="0" cy="-3" rx="3" ry="6" fill="#C9A961" opacity="0.9">
+      <animate attributeName="ry" values="5;6;5;7" dur="2.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;1;0.7;0.9" dur="1.8s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="0" cy="-2" rx="1.5" ry="3" fill="#F5E6C8">
+      <animate attributeName="opacity" values="0.9;1;0.8" dur="1.2s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
 </svg>
